@@ -13,11 +13,13 @@ class State(rx.State):
     result: int
 
     def on_page_load(self):
-        url = 'http://127.0.0.1:8001'
+        # url = 'http://127.0.0.1:8001'
+        url = 'http://78.46.49.173:8001'
         response = requests.get(f"{url}/math-operations")
+        
         if response.status_code == 200:
             result = response.json()
-            self.math_ops.extend(result.get("response"))
+            self.math_ops = result.get("response")
         else:
             # show error
             ...
@@ -27,7 +29,8 @@ class State(rx.State):
             "args": [self.val1, self.val2],
             "operations": [self.math_op]
         }
-        url = 'http://127.0.0.1:8001'
+        # url = 'http://127.0.0.1:8001'
+        url = 'http://78.46.49.173:8001'
         response = requests.post(f"{url}/calculate", json=req_data)
         if response.status_code == 200:
             result = response.json()
